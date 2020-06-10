@@ -12,7 +12,7 @@ var minify = require('html-minifier').minify;
     
 // })
 
-fs.readdir('./docs', (err, files) => {
+fs.readdir('./dist/markdown/', (err, files) => {
     files.forEach(file => {
         var fileName = file.split('.')
         convertMdTOHTML(fileName[0])
@@ -21,9 +21,8 @@ fs.readdir('./docs', (err, files) => {
 });
 
 function convertMdTOHTML(fileName) {
-    fs.readFile('./docs/' + fileName + '.md', 'utf8', function (err, data) {
+    fs.readFile('./dist/markdown/' + fileName + '.md', 'utf8', function (err, data) {
         if (err) { return console.error(err) }
-        // console.log(data);
         
         const MarkdownIt = require('markdown-it');
         md = new MarkdownIt();
@@ -48,7 +47,7 @@ function genPage(metadonnees, html) {
 
     var head = `
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
