@@ -1,7 +1,12 @@
 const fs = require('fs')
-var createFile = require('create-file');
-var yamlFrontmatter = require('yaml-front-matter');
-var minify = require('html-minifier').minify;
+const pckColors = require('colors');
+const pckCreateFile = require('create-file');
+const pckYamlFrontmatter = require('yaml-front-matter');
+const pckMinifier = require('html-minifier').minify;
+const pckVisData = require('vis-data').DataSet;
+var data = new pckVisData;
+const pckMarkdownIt = require('markdown-it');
+var md = new pckMarkdownIt();
 
 // fs.watch('./docs', 'utf8', function(ev, trigger) {
 //     console.log(ev);
@@ -16,28 +21,28 @@ fs.readdir('./dist/markdown/', (err, files) => {
     files.forEach(file => {
         var fileName = file.split('.')
         convertMdTOHTML(fileName[0])
-        console.log(file);
+        console.log('Conv. file '.green + file);
     });
 });
 
 function convertMdTOHTML(fileName) {
-    fs.readFile('./dist/markdown/' + fileName + '.md', 'utf8', function (err, data) {
-        if (err) { return console.error(err) }
-        
-        const MarkdownIt = require('markdown-it');
-        md = new MarkdownIt();
+    fs.readFile('./dist/markdown/' + fileName + '.md', 'utf8', function (err, fileContent) {
+        if (err) { return console.error(err.red) }
 
-        var metadonnees = yamlFrontmatter.loadFront(data);
-        var donnees = yamlFrontmatter.loadFront(data).__content;
+        var metadonnees = pckYamlFrontmatter.loadFront(fileContent);
+        var donnees = pckYamlFrontmatter.loadFront(fileContent).__content;
+        delete metadonnees.__content;
+
+        data.add(metadonnees);
     
         var html = md.render(donnees);
-        html = minify(genPage(metadonnees, html), {
+        html = pckMinifier(genPage(metadonnees, html), {
             removeAttributeQuotes: true,
             collapseWhitespace: true
         });
 
-        createFile('./build/' + fileName + '.html', html, function (err) {
-            console.log(err);
+        pckCreateFile('./build/' + fileName + '.html', html, function (err) {
+            if (err) { return console.error(err.red) }
         });
     
     });
