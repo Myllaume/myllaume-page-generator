@@ -1,0 +1,17 @@
+{
+  "name": "myllaume-page-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Guillaume Brioudes <https://myllaume.fr/>",
+  "license": "ISC",
+  "dependencies": {
+    "create-file": "^1.0.1",
+    "html-minifier": "^4.0.0",
+    "markdown-it": "^11.0.0",
+    "yaml-front-matter": "^4.1.0"
+  }
+}
