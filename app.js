@@ -6,7 +6,7 @@ const pckMinifier = require('html-minifier').minify;
 const pckVisData = require('vis-data').DataSet;
 var data = new pckVisData;
 const pckMarkdownIt = require('markdown-it');
-var md = new pckMarkdownIt();
+var mdRender = new pckMarkdownIt();
 
 // fs.watch('./docs', 'utf8', function(ev, trigger) {
 //     console.log(ev);
@@ -17,34 +17,33 @@ var md = new pckMarkdownIt();
     
 // })
 
-fs.readdir('./dist/markdown/', (err, files) => {
-    files.forEach(file => {
-        var fileName = file.split('.')
-        convertMdTOHTML(fileName[0])
-        console.log('Conv. file '.green + file);
-    });
+var markdownFiles = fs.readdirSync('./dist/markdown/', 'utf8');
+markdownFiles.forEach(file => {
+    var fileMetas = file.split('.');
+    var fileName = fileMetas[0];
+    var fileExtension = fileMetas[1];
+
+    convertMdToHtml(fileName)
 });
 
-function convertMdTOHTML(fileName) {
-    fs.readFile('./dist/markdown/' + fileName + '.md', 'utf8', function (err, fileContent) {
-        if (err) { return console.error(err.red) }
+function convertMdToHtml(fileName) {
+    var mdFile = fs.readFileSync('./dist/markdown/' + fileName + '.md', 'utf8');
 
-        var metadonnees = pckYamlFrontmatter.loadFront(fileContent);
-        var donnees = pckYamlFrontmatter.loadFront(fileContent).__content;
-        delete metadonnees.__content;
+    var mdMetadonnees = pckYamlFrontmatter.loadFront(mdFile);
+    var mdContent = pckYamlFrontmatter.loadFront(mdFile).__content;
+    delete mdMetadonnees.__content;
 
-        data.add(metadonnees);
+    data.add(mdMetadonnees)
     
-        var html = md.render(donnees);
-        html = pckMinifier(genPage(metadonnees, html), {
-            removeAttributeQuotes: true,
-            collapseWhitespace: true
-        });
+    var htmlContent = mdRender.render(mdContent);
+    htmlContent = pckMinifier(genPage(mdMetadonnees, mdContent), {
+        removeAttributeQuotes: true,
+        collapseWhitespace: true
+    });
 
-        pckCreateFile('./build/' + fileName + '.html', html, function (err) {
-            if (err) { return console.error(err.red) }
-        });
-    
+    fs.writeFile('./build/' + fileName + '.html', htmlContent, (err) => {
+        if (err) { return console.error( 'Err. write html file'.red + err) }
+        console.log('Write html file '.green + fileName + '.html');
     });
 }
 
