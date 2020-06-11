@@ -23,8 +23,10 @@ markdownFiles.forEach(file => {
     var fileName = fileMetas[0];
     var fileExtension = fileMetas[1];
 
-    convertMdToHtml(fileName)
+    convertMdToHtml(fileName);
 });
+
+genMainPage();
 
 function convertMdToHtml(fileName) {
     var mdFile = fs.readFileSync('./dist/markdown/' + fileName + '.md', 'utf8');
@@ -63,4 +65,21 @@ function genPage(metadonnees, html) {
     `;
 
     return head + html + '</body></html>';
+}
+
+function genMainPage() {
+    var stream = fs.createWriteStream("./build/index.html");
+
+    stream.once('open', (fd) => {
+        stream.write('<!DOCTYPE html><html lang="fr">');
+
+        data.forEach(function(params) {
+            stream.write('<p>' + params.title + '</p>');
+        }, { order: 'date' });
+
+        stream.write('</html>');
+    
+        // Important to close the stream when you're ready
+        stream.end();
+    });
 }
