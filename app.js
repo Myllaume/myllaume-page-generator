@@ -3,6 +3,10 @@ const pckColors = require('colors');
 const pckCreateFile = require('create-file');
 const pckYamlFrontmatter = require('yaml-front-matter');
 const pckMinifier = require('html-minifier').minify;
+var minifierOptions = {
+    removeAttributeQuotes: true,
+    collapseWhitespace: true
+}
 const pckVisData = require('vis-data').DataSet;
 var data = new pckVisData;
 const pckMarkdownIt = require('markdown-it');
@@ -38,10 +42,7 @@ function convertMdToHtml(fileName) {
     data.add(mdMetadonnees)
     
     var htmlContent = mdRender.render(mdContent);
-    htmlContent = pckMinifier(genPage(mdMetadonnees, mdContent), {
-        removeAttributeQuotes: true,
-        collapseWhitespace: true
-    });
+    htmlContent = genPage(mdMetadonnees, htmlContent);
 
     fs.writeFile('./build/' + fileName + '.html', htmlContent, (err) => {
         if (err) { return console.error( 'Err. write html file'.red + err) }
@@ -50,36 +51,55 @@ function convertMdToHtml(fileName) {
 }
 
 function genPage(metadonnees, html) {
-
-    var head = `
+    return pckMinifier(`
     <!DOCTYPE html>
     <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="` + metadonnees.author + `" />
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="author" content="${metadonnees.author}" />
 
-        <title>` + metadonnees.title + `</title>
-    </head>
-    <body>
-    `;
+            <title>${metadonnees.title}</title>
+        </head>
 
-    return head + html + '</body></html>';
+        <body>
+            ${html}
+        </body>
+
+    </html>
+    `, minifierOptions);
 }
 
 function genMainPage() {
-    var stream = fs.createWriteStream("./build/index.html");
+    var pageList = '';
 
-    stream.once('open', (fd) => {
-        stream.write('<!DOCTYPE html><html lang="fr">');
+    data.forEach(function(metas) {
+        pageList += `
+        <div><h2>${metas.title}</h2></div>
+        `;
+    }, {order: 'date'})
 
-        data.forEach(function(params) {
-            stream.write('<p>' + params.title + '</p>');
-        }, { order: 'date' });
+    var htmlContent = pckMinifier(`
+    <!DOCTYPE html>
+    <html lang="fr">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        stream.write('</html>');
-    
-        // Important to close the stream when you're ready
-        stream.end();
+            <title>main</title>
+        </head>
+
+        <body>
+            <h1>GRAND TITRE</h1>
+
+            ${pageList}
+        </body>
+
+    </html>
+    `, minifierOptions);
+
+    fs.writeFile('./build/index.html', htmlContent, (err) => {
+        if (err) { return console.error( 'Err. write html file'.red + err) }
+        console.log('Write html file '.green + 'index.html');
     });
 }
