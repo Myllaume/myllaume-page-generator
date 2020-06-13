@@ -6,14 +6,29 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Myllaume/myllaume-page-generator.git"
+  },
   "author": "Guillaume Brioudes <https://myllaume.fr/>",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Myllaume/myllaume-page-generator/issues"
+  },
+  "homepage": "https://github.com/Myllaume/myllaume-page-generator#readme",
   "dependencies": {
     "colors": "^1.4.0",
     "create-file": "^1.0.1",
     "html-minifier": "^4.0.0",
     "markdown-it": "^11.0.0",
     "vis-data": "^6.5.3",
-    "yaml-front-matter": "^4.1.0"
+    "yaml-front-matter": "^4.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.2",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.1"
   }
 }

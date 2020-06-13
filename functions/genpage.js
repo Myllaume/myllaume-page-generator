@@ -14,17 +14,21 @@ function post(fileName, metadonnees, html) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="author" content="${metadonnees.author}" />
 
+            <link rel="stylesheet" href="../assets/main.css">
+
             <title>${metadonnees.title}</title>
         </head>
 
         <body>
             ${html}
+
+            <script src="../assets/main.js"></script>
         </body>
 
     </html>
     `, minifierOptions);
 
-    fs.writeFile('./build/' + fileName + '.html', htmlContent, (err) => {
+    fs.writeFile('./build/post/' + fileName + '.html', htmlContent, (err) => {
         if (err) { return console.error( 'Err. write html file'.red + err) }
         console.log('Write html file '.green + fileName + '.html');
     });
@@ -35,7 +39,7 @@ function main(postList) {
 
     postList.forEach(function(metas) {
         pageList += `
-        <div><h2>${metas.title}</h2></div>
+        <div><h2><a href="./post/${metas.path}">${metas.title}</a></h2></div>
         `;
     }, {order: 'date'})
 
@@ -46,6 +50,8 @@ function main(postList) {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+            <link rel="stylesheet" href="./assets/main.css">
+
             <title>main</title>
         </head>
 
@@ -53,6 +59,8 @@ function main(postList) {
             <h1>GRAND TITRE</h1>
 
             ${pageList}
+
+            <script src="./assets/main.js"></script>
         </body>
 
     </html>

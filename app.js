@@ -27,6 +27,7 @@ function convertMdToHtml(fileName) {
     var mdMetadonnees = pckYamlFrontmatter.loadFront(mdFile);
     var mdContent = pckYamlFrontmatter.loadFront(mdFile).__content;
     delete mdMetadonnees.__content;
+    mdMetadonnees.path = fileName + '.html';
 
     data.add(mdMetadonnees)
     
