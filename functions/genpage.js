@@ -5,21 +5,20 @@ var minifierOptions = {
     collapseWhitespace: true
 }
 
+const metasGenerator = require('./genmetas');
+
 var footer = fs.readFileSync('./dist/html/' + 'footer.html', 'utf8');
 var identiteSite = fs.readFileSync('./dist/html/' + 'identite-site.html', 'utf8');
+var homeMetas = fs.readFileSync('./dist/json/' + 'home-metas.json', 'utf8');
 
 function post(fileName, metadonnees, html) {
     var htmlContent = pckMinifier(`
     <!DOCTYPE html>
     <html lang="fr">
         <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="author" content="${metadonnees.author}" />
+            ${metasGenerator.fullHead(metadonnees)}
 
             <link rel="stylesheet" href="../assets/main.css">
-
-            <title>${metadonnees.title}</title>
         </head>
 
         <body>
@@ -76,12 +75,9 @@ function main(postList) {
     <!DOCTYPE html>
     <html lang="fr">
         <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            ${metasGenerator.fullHead(JSON.parse(homeMetas), 'page')}
 
             <link rel="stylesheet" href="./assets/main.css">
-
-            <title>main</title>
         </head>
 
         <body>

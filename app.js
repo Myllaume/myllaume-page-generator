@@ -29,6 +29,9 @@ function convertMdToHtml(fileName) {
     delete mdMetadonnees.__content;
     mdMetadonnees.path = fileName + '.html';
 
+// console.log(mdMetadonnees);
+
+
     data.add(mdMetadonnees)
     
     var htmlContent = mdRender.render(mdContent);
