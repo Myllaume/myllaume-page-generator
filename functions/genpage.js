@@ -5,6 +5,9 @@ var minifierOptions = {
     collapseWhitespace: true
 }
 
+var footer = fs.readFileSync('./dist/html/' + 'footer.html', 'utf8');
+var identiteSite = fs.readFileSync('./dist/html/' + 'identite-site.html', 'utf8');
+
 function post(fileName, metadonnees, html) {
     var htmlContent = pckMinifier(`
     <!DOCTYPE html>
@@ -23,14 +26,8 @@ function post(fileName, metadonnees, html) {
             <div class="wrapper">
 
             <header class="header">
-                <div class="identite-site">
-                    <h1 class="titre-site">M<span class="fonti">y</span>llaume</h1>
-                    <span class="legal">
-                        <a href="https://creativecommons.org/licenses/by-nc/2.0/fr/" target="_blank">CC BY-NC</a>
-                        <a href="#">mentions légales</a>
-                        <a href="#">contact</a>
-                    </span>
-                </div>
+
+                ${identiteSite}
 
                 <div class="raison-editoriale">
                     <h2 class="ss-titre-site">Base de connaissance<br/>Guillaume Brioudes</h2>
@@ -43,13 +40,14 @@ function post(fileName, metadonnees, html) {
             </header>
 
             <main class="main">
-            ${html}
+
+                <a class="retour" href="../index.html">retour accueil</a>
+
+                ${html}
+
             </main>
 
-            <footer class="footer">
-                <img class="img-pied-page" src="../assets/footer-img.jpg" alt="">
-                <div class="devise">co<span class="fonti">d</span>e, phi<span class="fonti">l</span>o, t<span class="fonti">y</span>po</div>
-            </footer>
+            ${footer}
 
             </div>
         </body>
@@ -68,8 +66,10 @@ function main(postList) {
 
     postList.forEach(function(metas) {
         pageList += `
-        <div><h2><a href="./post/${metas.path}">${metas.title}</a></h2></div>
-        `;
+        <article class="article">
+            <h3 class="article__titre"><a href="./post/${metas.path}">${metas.title}</a></h3>
+            <span class="article__categorie">Projets</span>
+        </article>`;
     }, {order: 'date'})
 
     var htmlContent = pckMinifier(`
@@ -88,14 +88,8 @@ function main(postList) {
         <div class="wrapper">
 
             <header class="header">
-                <div class="identite-site">
-                    <h1 class="titre-site">M<span class="fonti">y</span>llaume</h1>
-                    <span class="legal">
-                        <a href="https://creativecommons.org/licenses/by-nc/2.0/fr/" target="_blank">CC BY-NC</a>
-                        <a href="#">mentions légales</a>
-                        <a href="#">contact</a>
-                    </span>
-                </div>
+                
+                ${identiteSite}
 
                 <div class="raison-editoriale">
                     <h2 class="ss-titre-site">Base de connaissance<br/>Guillaume Brioudes</h2>
@@ -113,10 +107,7 @@ function main(postList) {
 
             </main>
 
-            <footer class="footer">
-                <img class="img-pied-page" src="./assets/footer-img.jpg" alt="">
-                <div class="devise">co<span class="fonti">d</span>e, phi<span class="fonti">l</span>o, t<span class="fonti">y</span>po</div>
-            </footer>
+            ${footer}
 
             </div>
         </body>

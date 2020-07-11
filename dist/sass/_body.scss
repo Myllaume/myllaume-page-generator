@@ -19,3 +19,13 @@
     font-size: 1.4rem;
     margin-right: 2rem;
 }
+
+.retour {
+    font-family: $font-mono;
+    font-size: 1.4rem;
+}
+
+.retour::before {
+    content: '←';
+    margin: 1rem;
+}
