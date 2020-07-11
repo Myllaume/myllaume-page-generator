@@ -1,4 +1,5 @@
 const fs = require('fs');
+const pckYaml = require('js-yaml');
 const pckMinifier = require('html-minifier').minify;
 var minifierOptions = {
     removeAttributeQuotes: true,
@@ -6,10 +7,12 @@ var minifierOptions = {
 }
 
 const metasGenerator = require('./genmetas');
+const categorieGenerator = require('./gencategorie');
 
 var footer = fs.readFileSync('./dist/html/' + 'footer.html', 'utf8');
 var identiteSite = fs.readFileSync('./dist/html/' + 'identite-site.html', 'utf8');
-var homeMetas = fs.readFileSync('./dist/json/' + 'home-metas.json', 'utf8');
+
+var homeMetas = pckYaml.safeLoad(fs.readFileSync('./dist/' + 'home-metas.yml', 'utf8'));
 
 function post(fileName, metadonnees, html) {
     var htmlContent = pckMinifier(`
@@ -31,10 +34,7 @@ function post(fileName, metadonnees, html) {
                 <div class="raison-editoriale">
                     <h2 class="ss-titre-site">Base de connaissance<br/>Guillaume Brioudes</h2>
                     
-                    <ul class="categories">
-                        <li><a href="#">Développement</a></li>
-                        <li><a href="#">Documentation</a></li>
-                    </ul>
+                    ${categorieGenerator.list()}
                 </div>
             </header>
 
@@ -75,7 +75,7 @@ function main(postList) {
     <!DOCTYPE html>
     <html lang="fr">
         <head>
-            ${metasGenerator.fullHead(JSON.parse(homeMetas), 'page')}
+            ${metasGenerator.fullHead(homeMetas, 'page')}
 
             <link rel="stylesheet" href="./assets/main.css">
         </head>
@@ -90,10 +90,7 @@ function main(postList) {
                 <div class="raison-editoriale">
                     <h2 class="ss-titre-site">Base de connaissance<br/>Guillaume Brioudes</h2>
                     
-                    <ul class="categories">
-                        <li><a href="#">Développement</a></li>
-                        <li><a href="#">Documentation</a></li>
-                    </ul>
+                    ${categorieGenerator.list()}
                 </div>
             </header>
 
