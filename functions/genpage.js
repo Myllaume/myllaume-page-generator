@@ -20,9 +20,38 @@ function post(fileName, metadonnees, html) {
         </head>
 
         <body>
-            ${html}
+            <div class="wrapper">
 
-            <script src="../assets/main.js"></script>
+            <header class="header">
+                <div class="identite-site">
+                    <h1 class="titre-site">M<span class="fonti">y</span>llaume</h1>
+                    <span class="legal">
+                        <a href="https://creativecommons.org/licenses/by-nc/2.0/fr/" target="_blank">CC BY-NC</a>
+                        <a href="#">mentions légales</a>
+                        <a href="#">contact</a>
+                    </span>
+                </div>
+
+                <div class="raison-editoriale">
+                    <h2 class="ss-titre-site">Base de connaissance<br/>Guillaume Brioudes</h2>
+                    
+                    <ul class="categories">
+                        <li><a href="#">Développement</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <main class="main">
+            ${html}
+            </main>
+
+            <footer class="footer">
+                <img class="img-pied-page" src="../assets/footer-img.jpg" alt="">
+                <div class="devise">co<span class="fonti">d</span>e, phi<span class="fonti">l</span>o, t<span class="fonti">y</span>po</div>
+            </footer>
+
+            </div>
         </body>
 
     </html>
@@ -56,11 +85,40 @@ function main(postList) {
         </head>
 
         <body>
-            <h1>GRAND TITRE</h1>
+        <div class="wrapper">
 
-            ${pageList}
+            <header class="header">
+                <div class="identite-site">
+                    <h1 class="titre-site">M<span class="fonti">y</span>llaume</h1>
+                    <span class="legal">
+                        <a href="https://creativecommons.org/licenses/by-nc/2.0/fr/" target="_blank">CC BY-NC</a>
+                        <a href="#">mentions légales</a>
+                        <a href="#">contact</a>
+                    </span>
+                </div>
 
-            <script src="./assets/main.js"></script>
+                <div class="raison-editoriale">
+                    <h2 class="ss-titre-site">Base de connaissance<br/>Guillaume Brioudes</h2>
+                    
+                    <ul class="categories">
+                        <li><a href="#">Développement</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <main class="main">
+            
+                ${pageList}
+
+            </main>
+
+            <footer class="footer">
+                <img class="img-pied-page" src="./assets/footer-img.jpg" alt="">
+                <div class="devise">co<span class="fonti">d</span>e, phi<span class="fonti">l</span>o, t<span class="fonti">y</span>po</div>
+            </footer>
+
+            </div>
         </body>
 
     </html>

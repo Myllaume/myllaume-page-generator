@@ -1,0 +1,14 @@
+a {
+    color: $color-ponctuation;
+}
+
+a + a {
+    margin-left: 1rem;
+}
+
+.fonti {
+    color: $color-ponctuation;
+    font-family: $font-serif;
+    font-weight: inherit;
+    font-style: italic;
+}

@@ -1,0 +1,51 @@
+.identite-site {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.raison-editoriale {
+    display: flex;
+    justify-content: space-between;
+}
+
+.titre-site {
+    font-family: $font-mono;
+    font-weight: bold;
+    font-size: 7.2rem;
+    margin: 0 30px 1.4rem 0;
+}
+
+.ss-titre-site {
+    font-family: $font-mono;
+    font-weight: normal;
+    font-size: 1.8rem;
+}
+
+.legal {
+    font-size: 1.4rem;
+    font-family: $font-mono;
+}
+
+.categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categories::before  {
+    content: 'Catégories';
+    font-size: 1.8rem;
+    font-family: $font-mono;
+}
+
+.categories li {
+    font-family: $font-mono;
+    font-size: 1.8rem;
+    line-height: 140%;
+}
+
+.categories li::before {
+    content: '-';
+    margin-right: 0.4rem;
+}
