@@ -28,7 +28,10 @@ function convertMdToHtml(fileName) {
     var mdMetadonnees = pckYamlFrontmatter.loadFront(mdFile);
     var mdContent = pckYamlFrontmatter.loadFront(mdFile).__content;
     delete mdMetadonnees.__content;
-    mdMetadonnees.path = fileName + '.html';
+    mdMetadonnees.path = mdMetadonnees.id + '.html';
+
+    if (mdMetadonnees.date.update == null) {
+        mdMetadonnees.date.update = mdMetadonnees.date.publish; }
 
     data.add(mdMetadonnees)
     

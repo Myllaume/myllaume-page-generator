@@ -1,6 +1,7 @@
 const fs = require('fs');
 const pckYaml = require('js-yaml');
 const pckMinifier = require('html-minifier').minify;
+const pckMoment = require('moment');
 var minifierOptions = {
     removeAttributeQuotes: true,
     collapseWhitespace: true
@@ -47,6 +48,12 @@ function post(fileName, metadonnees, html) {
 
                 ${html}
 
+                <ul class="metadonnees">
+                    <li><span class="metadonnees__key">Mots-clés</span> : ${metadonnees.keyword.join(', ')}</li>
+                    <li><span class="metadonnees__key">Mise en ligne</span> : ${pckMoment(metadonnees.date.update).format('DD-MM-YYYY')}</li>
+                    <li><span class="metadonnees__key">Dernière édition</span> : ${pckMoment(metadonnees.date.update).format('DD-MM-YYYY')}</li>
+                </ul>
+
             </main>
 
             ${footer}
@@ -57,7 +64,7 @@ function post(fileName, metadonnees, html) {
     </html>
     `, minifierOptions);
 
-    fs.writeFile('./build/post/' + fileName + '.html', htmlContent, (err) => {
+    fs.writeFile('./build/post/' + metadonnees.path, htmlContent, (err) => {
         if (err) { return console.error( 'Err. write html file'.red + err) }
         console.log('Write html file '.green + fileName + '.html');
     });

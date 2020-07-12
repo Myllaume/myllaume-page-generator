@@ -30,3 +30,22 @@
     content: '←';
     margin: 1rem;
 }
+
+.metadonnees {
+    list-style-type: none;
+    padding: 0;
+    margin: 6rem 0 0 0;
+    font-family: $font-mono;
+}
+
+.metadonnees li {
+    font-size: 2.8rem;
+}
+
+.metadonnees__key {
+    font-weight: 600;
+}
+
+.metadonnees li::before {
+    content: '';
+}
