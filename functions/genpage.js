@@ -43,6 +43,8 @@ function post(fileName, metadonnees, html) {
 
                 <a class="retour" href="/index.html">retour accueil</a>
 
+                <h1>${metadonnees.title}</h1>
+
                 ${html}
 
             </main>

@@ -20,6 +20,7 @@
     font-family: $font-mono;
     font-weight: normal;
     font-size: 1.8rem;
+    margin: 0;
 }
 
 .legal {
@@ -46,6 +47,6 @@
 }
 
 .categories li::before {
-    content: '-';
+    content: '‒';
     margin-right: 0.4rem;
 }

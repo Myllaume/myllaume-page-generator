@@ -58,6 +58,7 @@ body {
     font-size: 3.6rem;
     background: #FFFFF8;
     cursor: default;
+    counter-reset: paragraph;
 }
 
 .wrapper {

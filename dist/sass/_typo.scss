@@ -1,9 +1,77 @@
+h1, h2, h3 {
+    margin: 6rem 0 2rem 0;
+}
+
+h1 {
+    font-size: 7.2rem;
+}
+
+h2 {
+    font-size: 5.4rem;
+}
+
+h3 {
+    font-size: 3.8rem;
+}
+
 a {
     color: $color-ponctuation;
 }
 
+p {
+    position: relative;
+}
+
+p::before {
+    position: absolute;
+    left: -80px;
+    counter-increment: paragraph;
+    opacity: 0.5;
+    content: "⁋ "counter(paragraph);
+    font-style: normal;
+}
+
 a + a {
     margin-left: 1rem;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    position: relative;
+    line-height: 150%;
+}
+
+li::before {
+    position: absolute;
+    left: -20px;
+    content: 'o';
+    font-size: 2rem;
+}
+
+p code,
+pre {
+    margin: 0 2rem;
+    padding: 0.4rem 2rem;
+}
+
+code,
+pre {
+    font-family: $font-mono;
+    background-color: #ffffe0;
+    border-radius: 2px;
+    overflow: auto;
+    font-size: 2.8rem;
+    line-height: 150%;
+    user-select: all;
+}
+
+blockquote {
+    font-style: italic;
+    font-size: 3rem;
+    line-height: 150%;
 }
 
 .fonti {
