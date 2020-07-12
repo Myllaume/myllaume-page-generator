@@ -14,7 +14,7 @@ var footer = fs.readFileSync('./dist/html/' + 'footer.html', 'utf8');
 var identiteSite = fs.readFileSync('./dist/html/' + 'identite-site.html', 'utf8');
 
 var homeMetas = pckYaml.safeLoad(fs.readFileSync('./dist/' + 'home-metas.yml', 'utf8'));
-var categorieList = pckYaml.safeLoad(fs.readFileSync('./' + 'config.yml', 'utf8')).categorie;
+var categorieList = pckYaml.safeLoad(fs.readFileSync('./' + 'categories.yml', 'utf8'));
 
 function post(fileName, metadonnees, html) {
     var htmlContent = pckMinifier(`
@@ -129,13 +129,13 @@ function main(postList) {
 
 function categories(postList) {
     
-    categorieList.forEach(cat => {
+    categorieList.forEach(catMetas => {
 
         var refList = '';
 
         postList.forEach(function(metas) { refList += genEntries(metas); }, {
             filter: function (item) {
-                return (item.categorie == cat);
+                return (item.categorie == catMetas.id);
             }
         })
 
@@ -143,7 +143,7 @@ function categories(postList) {
         <!DOCTYPE html>
         <html lang="fr">
             <head>
-                ${metasGenerator.fullHead(homeMetas, 'main')}
+                ${metasGenerator.fullHead(catMetas, 'categorie')}
     
                 <link rel="stylesheet" href="/assets/main.css">
             </head>
@@ -178,7 +178,7 @@ function categories(postList) {
         </html>
         `, minifierOptions);
     
-        fs.writeFile('./build/categories/' + cat + '.html', htmlContent, (err) => {
+        fs.writeFile('./build/categories/' + catMetas.id + '.html', htmlContent, (err) => {
             if (err) { return console.error( 'Err. write html file'.red + err) }
             console.log('Write html file '.green + 'index.html');
         });

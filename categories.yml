@@ -1,0 +1,37 @@
+- id: projets
+  title: Projets
+  description: >
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Maecenas non egestas diam. Interdum et malesuada fames
+    ac ante ipsum primis in faucibus
+  date: 2020-07-12 00:00:00
+  author: Guillaume Brioudes
+  keyword:
+    - projet professionnel
+    - autodidacte
+    - site web
+- id: developpement
+  title: Développement
+  description: >
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Maecenas non egestas diam. Interdum et malesuada fames
+    ac ante ipsum primis in faucibus
+  date: 2020-07-12 00:00:00
+  author: Guillaume Brioudes
+  keyword:
+    - code
+    - programmation
+    - développement web
+    - théorie programmation
+- id: documentation
+  title: Documentation
+  description: >
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Maecenas non egestas diam. Interdum et malesuada fames
+    ac ante ipsum primis in faucibus
+  date: 2020-07-12 00:00:00
+  author: Guillaume Brioudes
+  keyword:
+    - document numérique
+    - base de connaissance
+    - éditorialisation
