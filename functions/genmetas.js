@@ -28,7 +28,10 @@ function fullHead(metas, genType = 'post') {
     }
 
     switch (genType) {
-        case 'page':
+        case 'main':
+            var schema = `{"@context":"https://schema.org","@type":"WebSite","name":"Myllaume","headline":"Base de connaissance Guillaume Brioudes","url":"https://myllaume.fr/","image":"https://myllaume.fr/assets/image/image-rs.jpg","inLanguage":"fr","keywords":"${tagString(metas.keyword)}","datePublished":"${metas.date.publish}","dateModified":"${metas.date.update}","description":"${metas.description}","identifier":"https://myllaume.fr/","license":"https://creativecommons.org/licenses/by-nc/2.0/fr/","creator":{"@type":"Person","name":"Guillaume Brioudes","identifier":"https://myllaume.fr/","nationality":"France","jobTitle":"Web developper","email":"guillaume.brioudes@myllaume.fr"},"mainEntityOfPage":{"@type":"CreativeWork","name":"Documentation et développement web","abstract":"Rédaction sur la documentation ou le développement web comme deux pratiques d'architecture de l'information."}}`;
+            break;
+        case 'categorie':
             var schema = `{"@context":"https://schema.org","@type":"WebSite","name":"Myllaume","headline":"Base de connaissance Guillaume Brioudes","url":"https://myllaume.fr/","image":"https://myllaume.fr/assets/image/image-rs.jpg","inLanguage":"fr","keywords":"${tagString(metas.keyword)}","datePublished":"${metas.date.publish}","dateModified":"${metas.date.update}","description":"${metas.description}","identifier":"https://myllaume.fr/","license":"https://creativecommons.org/licenses/by-nc/2.0/fr/","creator":{"@type":"Person","name":"Guillaume Brioudes","identifier":"https://myllaume.fr/","nationality":"France","jobTitle":"Web developper","email":"guillaume.brioudes@myllaume.fr"},"mainEntityOfPage":{"@type":"CreativeWork","name":"Documentation et développement web","abstract":"Rédaction sur la documentation ou le développement web comme deux pratiques d'architecture de l'information."}}`;
             break;
         case 'post':

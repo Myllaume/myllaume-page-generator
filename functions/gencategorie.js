@@ -1,8 +1,9 @@
 const fs = require('fs');
 const pckYaml = require('js-yaml');
 
+var categories = pckYaml.safeLoad(fs.readFileSync('./' + 'config.yml', 'utf8')).categorie;
+
 function list() {
-    var categories = pckYaml.safeLoad(fs.readFileSync('./' + 'config.yml', 'utf8')).categorie;
 
     var html = '';
 

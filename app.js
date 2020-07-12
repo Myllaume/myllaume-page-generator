@@ -8,6 +8,7 @@ const pckMarkdownIt = require('markdown-it');
 var mdRender = new pckMarkdownIt();
 
 const generator = require('./functions/genpage');
+const categorieGenerator = require('./functions/gencategorie');
 
 // Browse for mardown files
 var markdownFiles = fs.readdirSync('./dist/markdown/', 'utf8');
@@ -29,13 +30,11 @@ function convertMdToHtml(fileName) {
     delete mdMetadonnees.__content;
     mdMetadonnees.path = fileName + '.html';
 
-// console.log(mdMetadonnees);
-
-
     data.add(mdMetadonnees)
     
     var htmlContent = mdRender.render(mdContent);
     generator.post(fileName, mdMetadonnees, htmlContent);
 }
 
-generator.main(data)
+generator.main(data);
+generator.categories(data);
