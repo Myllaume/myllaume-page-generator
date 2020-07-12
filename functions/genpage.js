@@ -22,7 +22,7 @@ function post(fileName, metadonnees, html) {
         <head>
             ${metasGenerator.fullHead(metadonnees)}
 
-            <link rel="stylesheet" href="../assets/main.css">
+            <link rel="stylesheet" href="/assets/main.css">
         </head>
 
         <body>
@@ -41,7 +41,7 @@ function post(fileName, metadonnees, html) {
 
             <main class="main">
 
-                <a class="retour" href="../index.html">retour accueil</a>
+                <a class="retour" href="/index.html">retour accueil</a>
 
                 ${html}
 
@@ -64,7 +64,7 @@ function post(fileName, metadonnees, html) {
 function genEntries(metas) {
     return `
     <article class="article">
-        <h3 class="article__titre"><a href="./post/${metas.path}">${metas.title}</a></h3>
+        <h3 class="article__titre"><a href="/post/${metas.path}">${metas.title}</a></h3>
         <span class="article__categorie">${metas.categorie}</span>
     </article>`;
 }
@@ -81,7 +81,7 @@ function main(postList) {
         <head>
             ${metasGenerator.fullHead(homeMetas, 'main')}
 
-            <link rel="stylesheet" href="./assets/main.css">
+            <link rel="stylesheet" href="/assets/main.css">
         </head>
 
         <body>
@@ -136,7 +136,7 @@ function categories(postList) {
             <head>
                 ${metasGenerator.fullHead(homeMetas, 'main')}
     
-                <link rel="stylesheet" href="../assets/main.css">
+                <link rel="stylesheet" href="/assets/main.css">
             </head>
     
             <body>
@@ -155,7 +155,7 @@ function categories(postList) {
     
                 <main class="main">
 
-                    <a class="retour" href="../index.html">retour accueil</a>
+                    <a class="retour" href="/index.html">retour accueil</a>
                 
                     ${refList}
     

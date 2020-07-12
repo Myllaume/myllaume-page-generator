@@ -8,7 +8,7 @@ function list() {
     var html = '';
 
     categories.forEach(cat => {
-        html += `<li><a href="./categories/${cat}.html">${cat}</a></li>`;
+        html += `<li><a href="/categories/${cat}.html">${cat}</a></li>`;
     });
 
     return `<ul class="categories">
