@@ -16,7 +16,7 @@ var identiteSite = fs.readFileSync('./dist/html/' + 'identite-site.html', 'utf8'
 var homeMetas = pckYaml.safeLoad(fs.readFileSync('./dist/' + 'home-metas.yml', 'utf8'));
 var categorieList = pckYaml.safeLoad(fs.readFileSync('./' + 'categories.yml', 'utf8'));
 
-function post(fileName, metadonnees, html) {
+function post(metadonnees, html) {
     var htmlContent = pckMinifier(`
     <!DOCTYPE html>
     <html lang="fr">
@@ -64,16 +64,16 @@ function post(fileName, metadonnees, html) {
     </html>
     `, minifierOptions);
 
-    fs.writeFile('./build/post/' + metadonnees.path, htmlContent, (err) => {
+    fs.writeFile('./build/posts/' + metadonnees.path, htmlContent, (err) => {
         if (err) { return console.error( 'Err. write html file'.red + err) }
-        console.log('Write html file '.green + fileName + '.html');
+        console.log('Write html file '.green + metadonnees.id + '.html');
     });
 }
 
 function genEntries(metas) {
     return `
     <article class="article">
-        <h3 class="article__titre"><a href="/post/${metas.path}">${metas.title}</a></h3>
+        <h3 class="article__titre"><a href="/posts/${metas.path}">${metas.title}</a></h3>
         <span class="article__categorie">${metas.categorie}</span>
     </article>`;
 }
@@ -127,6 +127,55 @@ function main(postList) {
     });
 }
 
+function page(metas, html) {
+
+    var htmlContent = pckMinifier(`
+    <!DOCTYPE html>
+    <html lang="fr">
+        <head>
+            ${metasGenerator.fullHead(homeMetas, 'page')}
+
+            <link rel="stylesheet" href="/assets/main.css">
+        </head>
+
+        <body>
+        <div class="wrapper">
+
+            <header class="header">
+                
+                ${identiteSite}
+
+                <div class="raison-editoriale">
+                    <h2 class="ss-titre-site">Base de connaissance<br/>Guillaume Brioudes</h2>
+                    
+                    ${categorieGenerator.list()}
+                </div>
+            </header>
+
+            <main class="main">
+
+                <a class="retour" href="/index.html">retour accueil</a>
+
+                <h1>${metas.title}</h1>
+            
+                ${html}
+
+            </main>
+
+            ${footer}
+
+            </div>
+        </body>
+
+    </html>
+    `, minifierOptions);
+
+    fs.writeFile('./build/' + metas.id + '.html', htmlContent, (err) => {
+        if (err) { return console.error( 'Err. write html file'.red + err) }
+        console.log('Write html file '.green + metas.id + '.html');
+    });
+}
+
 function categories(postList) {
     
     categorieList.forEach(catMetas => {
@@ -165,6 +214,8 @@ function categories(postList) {
                 <main class="main">
 
                     <a class="retour" href="/index.html">retour accueil</a>
+
+                    <h2 class="cat-title">${catMetas.title}</h2>
                 
                     ${refList}
     
@@ -180,7 +231,7 @@ function categories(postList) {
     
         fs.writeFile('./build/categories/' + catMetas.id + '.html', htmlContent, (err) => {
             if (err) { return console.error( 'Err. write html file'.red + err) }
-            console.log('Write html file '.green + 'index.html');
+            console.log('Write html file '.green + catMetas.id + '.html');
         });
 
     });
@@ -188,4 +239,5 @@ function categories(postList) {
 
 exports.post = post;
 exports.main = main;
+exports.page = page;
 exports.categories = categories;

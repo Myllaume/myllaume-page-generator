@@ -20,6 +20,12 @@ function fullHead(metas, genType = 'post') {
             var schema = `{"@context":"https://schema.org","@type":"WebSite","name":"Myllaume","headline":"Base de connaissance Guillaume Brioudes","url":"${metas.url}","image":"https://myllaume.fr/assets/image/image-rs.jpg","inLanguage":"fr","keywords":"${metas.keyword.join(',')}","datePublished":"${metas.date.publish}","dateModified":"${metas.date.update}","description":"${metas.description}","identifier":"${metas.url}","license":"https://creativecommons.org/licenses/by-nc/2.0/fr/","creator":{"@type":"Person","name":"Guillaume Brioudes","identifier":"https://myllaume.fr/","nationality":"France","jobTitle":"Web developper","email":"guillaume.brioudes@myllaume.fr"},"mainEntityOfPage":{"@type":"CreativeWork","name":"Documentation et développement web","abstract":"Rédaction sur la documentation ou le développement web comme deux pratiques d'architecture de l'information."}}`;
             pageTitle = metas.title;
             break;
+        case 'page':
+            metas.url = 'https://myllaume.fr/' + metas.id + '.html';
+            metas.type = 'page';
+            var schema = `{"@context":"https://schema.org","@type":"WebPage","name":"${metas.title} — Myllaume","headline":"Articles de la catégorie ${metas.title}","url":"${metas.url}","image":"https://myllaume.fr/assets/image/image-rs.jpg","inLanguage":"fr","keywords":"${metas.keyword.join(',')}","datePublished":"${metas.date}","dateModified":"${metas.date}","description":"${metas.description}","identifier":"${metas.url}","license":"https://creativecommons.org/licenses/by-nc/2.0/fr/","creator":{"@type":"Person","name":"Guillaume Brioudes","identifier":"https://myllaume.fr/","nationality":"France","jobTitle":"Web developper","email":"guillaume.brioudes@myllaume.fr"},"mainEntityOfPage":{"@type":"CreativeWork","name":"Documentation et développement web","abstract":"Rédaction sur la documentation ou le développement web comme deux pratiques d'architecture de l'information."}}`;
+            pageTitle = 'Catégorie ' + metas.title  + ' — Myllaume';
+            break;
         case 'categorie':
             metas.url = 'https://myllaume.fr/categories/' + metas.id + '.html';
             metas.type = 'page';
@@ -27,7 +33,7 @@ function fullHead(metas, genType = 'post') {
             pageTitle = 'Catégorie ' + metas.title  + ' — Myllaume';
             break;
         case 'post':
-            metas.url = 'https://myllaume.fr/post/' + metas.path;
+            metas.url = 'https://myllaume.fr/posts/' + metas.path;
             metas.type = 'article';
             var schema = `{"@context":"https://schema.org","@type":"BlogPosting","name":"${metas.title}","headline":"${metas.title}","url":"${metas.url}","articleSection":"${metas.categorie}","image":"https://myllaume.fr/assets/image/image-rs.jpg","inLanguage":"fr","keywords":"${metas.keyword.join(',')}","datePublished":"${metas.date.publish}","dateModified":"${metas.date.update}","description":"${metas.description}","identifier":"${metas.url}","license":"https://creativecommons.org/licenses/by-nc/2.0/fr/","author":{"@type":"Person","name":"Guillaume Brioudes","identifier":"https://myllaume.fr/","nationality":"France","jobTitle":"Web developper","email":"guillaume.brioudes@myllaume.fr"},"mainEntityOfPage":{"@type":"CreativeWork","name":"Documentation et développement web","abstract":"Rédaction sur la documentation ou le développement web comme deux pratiques d'architecture de l'information."},"publisher":{"@type":"Organization","name":"Myllaume","email":"guillaume.brioudes@myllaume.fr","logo":"https://myllaume.fr/assets/image/logo-myllaume.svg","identifier":"https://myllaume.fr/","url":"https://myllaume.fr/","funder":{"@type":"Person","name":"Guillaume Brioudes","identifier":"https://myllaume.fr/"}}}`;
             pageTitle = metas.title + ' — Myllaume';

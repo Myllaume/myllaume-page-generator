@@ -1,6 +1,5 @@
 const fs = require('fs')
 const pckColors = require('colors');
-const pckCreateFile = require('create-file');
 const pckYamlFrontmatter = require('yaml-front-matter');
 const pckVisData = require('vis-data').DataSet;
 var data = new pckVisData;
@@ -8,22 +7,33 @@ const pckMarkdownIt = require('markdown-it');
 var mdRender = new pckMarkdownIt();
 
 const generator = require('./functions/genpage');
-const categorieGenerator = require('./functions/gencategorie');
 
 // Browse for mardown files
-var markdownFiles = fs.readdirSync('./dist/markdown/', 'utf8');
-// For each file : generate html equivalent
-markdownFiles.forEach(file => {
+fs.readdirSync('./dist/posts/', 'utf8').forEach(file => {
     var fileMetas = file.split('.');
     var fileName = fileMetas[0];
     var fileExtension = fileMetas[1];
 
     if (fileExtension == 'md') {
-        convertMdToHtml(fileName); }
+        var post = loadMarkdown('./dist/posts/' + fileName + '.md');
+        data.add(post.metas);
+        generator.post(post.metas, post.html);
+    }
 });
 
-function convertMdToHtml(fileName) {
-    var mdFile = fs.readFileSync('./dist/markdown/' + fileName + '.md', 'utf8');
+fs.readdirSync('./dist/pages/', 'utf8').forEach(file => {
+    var fileMetas = file.split('.');
+    var fileName = fileMetas[0];
+    var fileExtension = fileMetas[1];
+
+    if (fileExtension == 'md') {
+        var page = loadMarkdown('./dist/pages/' + fileName + '.md');
+        generator.page(page.metas, page.html);
+    }
+});
+
+function loadMarkdown(filePath) {
+    var mdFile = fs.readFileSync(filePath, 'utf8');
 
     var mdMetadonnees = pckYamlFrontmatter.loadFront(mdFile);
     var mdContent = pckYamlFrontmatter.loadFront(mdFile).__content;
@@ -33,10 +43,10 @@ function convertMdToHtml(fileName) {
     if (mdMetadonnees.date.update == null) {
         mdMetadonnees.date.update = mdMetadonnees.date.publish; }
 
-    data.add(mdMetadonnees)
-    
-    var htmlContent = mdRender.render(mdContent);
-    generator.post(fileName, mdMetadonnees, htmlContent);
+    return {
+        html: mdRender.render(mdContent),
+        metas: mdMetadonnees
+    }
 }
 
 generator.main(data);
